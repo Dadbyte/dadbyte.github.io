@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ovenwise — Privacy Policy</title>
+<meta name="description" content="Ovenwise privacy policy: no accounts, no ads, no analytics. Your bake data stays on your device.">
+<style>
+  :root {
+    --bg: #F5F0EB; --ink: #1C1917; --muted: #57534E;
+    --amber: #B45309; --rule: #E7E0D8; --card: #FFFFFF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1C1917; --ink: #F5F0EB; --muted: #A8A29E; --amber: #FBBF24; --rule: #3C3835; --card: #262220; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 Georgia, 'Times New Roman', serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
+  .brand { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .brand .mark { font-size: 28px; }
+  .brand .name { font-size: 22px; font-weight: 700; letter-spacing: .3px; font-family: Georgia, serif; }
+  .byline { color: var(--muted); font-size: 14px; margin: 0 0 36px;
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  h1 { font-size: 34px; line-height: 1.2; margin: 0 0 6px; }
+  .meta { color: var(--muted); font-size: 14px; margin-bottom: 32px;
+          font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  h2 { font-size: 21px; margin: 40px 0 10px; padding-top: 22px; border-top: 1px solid var(--rule); }
+  p, li { margin: 0 0 14px; }
+  ul { padding-left: 22px; margin: 0 0 14px; }
+  li { margin-bottom: 8px; }
+  a { color: var(--amber); }
+  .tldr { background: var(--card); border: 1px solid var(--rule); border-radius: 12px;
+          padding: 18px 20px; margin-bottom: 8px; }
+  .tldr p { margin: 0; }
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--rule);
+           color: var(--muted); font-size: 14px;
+           font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+</style>
+</head>
+<body>
+<main>
+  <div class="brand"><span class="mark">🦉</span><span class="name">Ovenwise</span></div>
+  <p class="byline">by Dadbyte</p>
+
+  <h1>Privacy Policy</h1>
+  <p class="meta">Effective July 2, 2026 · App: Ovenwise (com.ovenwise.app) · Developer: Dadbyte ·
+     Contact: <a href="mailto:support@dadbyte.com">support@dadbyte.com</a></p>
+
+  <div class="tldr">
+    <p><strong>The short version:</strong> Ovenwise works on your device. There are no accounts, no
+    ads, no analytics, and no tracking of any kind. Your bake plans, settings, and bake log never
+    leave your phone unless you choose to share them. The only time the app talks to the internet
+    is an optional altitude lookup that you trigger yourself: it sends only the ZIP code you
+    typed to a geocoding service, and the resulting coordinates to an elevation service —
+    nothing more.</p>
+  </div>
+
+  <h2>What stays on your device</h2>
+  <p>Ovenwise stores the following in the app's private storage on your phone. None of it is sent
+  to us — we run no servers and receive no data:</p>
+  <ul>
+    <li>Your bake schedules and settings (baking style, bake day and time, hydration, kitchen
+        temperature, sleep window, altitude, add-ins)</li>
+    <li>Bake log entries you save (ratings, tags, notes)</li>
+    <li>Reminder settings and the saved plan your scheduled notifications are based on</li>
+    <li>Preferences such as theme, help mode, a ZIP code you looked up, and which add-ins you use
+        most</li>
+  </ul>
+  <p>If your phone's standard Android backup is turned on, this app data may be included in your
+  device's backup to your own Google account, like any other app. To remove everything, clear the
+  app's data in system settings or uninstall the app. (If Android backup is on, a copy may remain
+  in your Google account backup until Android replaces or expires it — you can manage device
+  backups in your Google account settings.)</p>
+
+  <h2>The optional altitude lookup</h2>
+  <p>On the Setup tab you can type a US ZIP code and tap the lookup button to fetch your elevation
+  (fermentation runs faster at high altitude). When you do, the app makes two one-time
+  requests:</p>
+  <ul>
+    <li>Your ZIP code is sent to <strong>Zippopotam.us</strong> to get the approximate coordinates
+        and place name for that ZIP.</li>
+    <li>Those coordinates are sent to <strong>Open-Elevation</strong> (open-elevation.com) to get
+        the elevation.</li>
+  </ul>
+  <p>That's the entire exchange. It happens only when you tap the button, the ZIP code is saved on
+  your device only, and we never see it. Both requests are made over an encrypted connection
+  (HTTPS), and the app is technically restricted — by its content-security policy — from
+  contacting any other server. Like any internet request, these requests necessarily
+  include your IP address, and the two services process them under their own policies. If you'd
+  rather not use the lookup, you can select or enter your altitude manually and the app makes no
+  network requests at all.</p>
+
+  <h2>Notifications</h2>
+  <p>Step reminders are optional. If you turn them on, Android will ask for notification
+  permission, and the reminders are scheduled entirely on your device. The app uses the "run at
+  startup" permission only to restore your scheduled reminders after your phone reboots. You can
+  turn reminders off at any time in the app or in system settings; nothing about your notification
+  choices is transmitted anywhere.</p>
+
+  <h2>Feedback</h2>
+  <p>The Help tab's feedback form opens <strong>your own email app</strong> with a pre-written
+  message addressed to support@dadbyte.com. The message includes your text, a reply address if you
+  chose to give one, the app version, and a short summary of your current bake settings so we can
+  help — all of it visible to you before you send, and you can edit or delete any of it. Nothing is sent unless you press send in your email
+  app. If you email us, we use your message and email address only to respond and to improve the
+  app. We don't add you to mailing lists or share your address with anyone. Ask us at any time and
+  we'll delete your correspondence.</p>
+
+  <h2>Sharing and exports</h2>
+  <p>Calendar files (.ics), schedule images, and the bake-along guide are generated on your
+  device. When you use the share button, Android's share sheet sends the file wherever you point
+  it — that destination (your calendar app, a chat, etc.) is your choice and outside the app.</p>
+
+  <h2>What we don't do</h2>
+  <ul>
+    <li>No accounts or sign-in</li>
+    <li>No advertising or ad SDKs</li>
+    <li>No analytics, telemetry, or crash reporting</li>
+    <li>No selling, renting, or sharing of personal information — we never possess it in the
+        first place</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>Ovenwise is a general-audience kitchen tool and is not directed at children under 13. The app
+  collects no personal information from anyone, including children.</p>
+
+  <h2>Changes to this policy</h2>
+  <p>If the app's data practices ever change, we'll update this page and the effective date above,
+  and call out material changes in the app's release notes.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about privacy or this policy:
+     <a href="mailto:support@dadbyte.com">support@dadbyte.com</a></p>
+
+  <footer>© 2026 Dadbyte · Ovenwise</footer>
+</main>
+</body>
+</html>
