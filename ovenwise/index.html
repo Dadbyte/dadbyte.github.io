@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ovenwise — Sourdough scheduling for Android</title>
+<meta name="description" content="Tell it when you want to bake. It plans every step and reminds you on time. Sourdough scheduling for Android, by Dadbyte.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ovenwise">
+<meta property="og:title" content="Ovenwise — Sourdough scheduling for Android">
+<meta property="og:description" content="Tell it when you want to bake. It plans every step and reminds you on time.">
+<meta property="og:url" content="https://dadbyte.com/ovenwise/">
+<meta property="og:image" content="https://dadbyte.com/ovenwise/assets/ovenwise-feature-1024x500.jpg">
+<meta property="og:image:width" content="1024">
+<meta property="og:image:height" content="500">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ovenwise — Sourdough scheduling for Android">
+<meta name="twitter:description" content="Tell it when you want to bake. It plans every step and reminds you on time.">
+<meta name="twitter:image" content="https://dadbyte.com/ovenwise/assets/ovenwise-feature-1024x500.jpg">
+
+<link rel="icon" type="image/png" href="./assets/icon-charcoal-1024.png">
+<link rel="apple-touch-icon" href="./assets/icon-amber-1024.png">
+<meta name="theme-color" content="#1C1917">
+
+<style>
+  /* ---------- Self-hosted brand faces (same subsets the app ships) ---------- */
+  @font-face {
+    font-family: 'Fraunces';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('./assets/fonts/fraunces.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('./assets/fonts/karla.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./assets/fonts/jetbrains-mono-regular.woff2') format('woff2');
+  }
+
+  /* ---------- Tokens ---------- */
+  :root {
+    --char: #1C1917;
+    --char-well: #151210;
+    --char-raise: #262220;
+    --cream: #F5F0EB;
+    --stone: #A8A29E;
+    --amber: #F59E0B;
+    --amber-bright: #FBBF24;
+    --rule: #3A3430;
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Karla', system-ui, -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { max-width: 100%; overflow-x: clip; }
+  body {
+    margin: 0;
+    background: var(--char);
+    color: var(--cream);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; height: auto; }
+  a { color: var(--amber-bright); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--amber); }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(30px, 4.4vw, 44px);
+    line-height: 1.12;
+    letter-spacing: -.01em;
+    margin: 10px 0 18px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    z-index: 2;              /* let the phone overlap the shelf below */
+    text-align: center;
+    padding: 72px 0 0;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -140px; left: 50%;
+    width: 720px; height: 620px;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(245, 158, 11, .13), transparent 70%);
+    pointer-events: none;
+  }
+  .hero > .wrap { position: relative; }
+  .hero .mark { width: 108px; height: 108px; }
+  .wordmark {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(44px, 7vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -.015em;
+    margin: 6px 0 14px;
+  }
+  .wordmark .wise { color: var(--amber); }
+  .hero .sub {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin: 0 0 26px;
+  }
+  .hero h1 {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(26px, 4.6vw, 42px);
+    line-height: 1.22;
+    letter-spacing: -.01em;
+    max-width: 17.5em;
+    margin: 0 auto 30px;
+  }
+  .cta {
+    display: inline-block;
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .01em;
+    color: var(--char);
+    background: var(--amber);
+    border: 1px solid var(--amber);
+    border-radius: 999px;
+    padding: 14px 30px;
+    text-decoration: none;
+  }
+  a.cta:hover { background: var(--amber-bright); border-color: var(--amber-bright); color: var(--char); }
+  .cta-soon {
+    background: transparent;
+    color: var(--amber-bright);
+    border: 1px solid rgba(245, 158, 11, .55);
+    cursor: default;
+  }
+  .trust {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--stone);
+    margin: 18px 0 0;
+  }
+  .trust span + span::before { content: '·'; margin: 0 .9em; color: var(--rule); }
+
+  .phone {
+    background: #0C0A09;
+    border: 1px solid var(--rule);
+    border-radius: 36px;
+    padding: 10px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .5);
+  }
+  .phone img { display: block; width: 100%; border-radius: 27px; }
+  .hero .phone {
+    width: min(320px, 80vw);
+    margin: 56px auto -140px;
+  }
+  .hero-shelf { height: 190px; background: linear-gradient(var(--char), var(--char-well)); }
+
+  /* ---------- Bands ---------- */
+  .band { padding: 96px 0; }
+  .band-well { background: var(--char-well); }
+  .band-head { max-width: 620px; }
+  .band-head p { color: var(--stone); margin: 0; }
+
+  /* ---------- Plan section: timeline + trio ---------- */
+  .plan-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: 64px;
+    align-items: start;
+    margin-top: 56px;
+  }
+
+  .timeline {
+    background: var(--char-raise);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 26px 26px 30px;
+  }
+  .timeline-caption {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin: 0 0 4px;
+  }
+  .timeline-title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 22px;
+  }
+  .timeline-title em { font-style: normal; color: var(--amber); }
+  .tl { list-style: none; margin: 0; padding: 0; }
+  .tl li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 14px;
+    padding: 7px 0 7px 22px;
+  }
+  .tl li::before {                    /* the rail */
+    content: '';
+    position: absolute;
+    left: 5px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--rule);
+  }
+  .tl li:first-child::before { top: 50%; }
+  .tl li:last-child::before { bottom: 50%; }
+  .tl li::after {                     /* the dot */
+    content: '';
+    position: absolute;
+    left: 2px; top: 50%;
+    width: 8px; height: 8px;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    background: var(--stone);
+  }
+  .tl .t {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--stone);
+    white-space: nowrap;
+    align-self: center;
+  }
+  .tl .s { font-size: 15.5px; align-self: center; }
+  .tl .asleep {
+    display: block;
+    padding: 12px 0 12px 22px;
+  }
+  .tl .asleep::after { content: none; }
+  .tl .asleep-box {
+    border: 1px dashed var(--rule);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--stone);
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+  .tl .asleep-box .moon { color: var(--amber-bright); margin-right: 8px; }
+  .tl .bake::after {
+    background: var(--amber);
+    box-shadow: 0 0 0 5px rgba(245, 158, 11, .18);
+  }
+  .tl .bake .t { color: var(--amber-bright); }
+  .tl .bake .s {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--amber-bright);
+  }
+  .timeline-note {
+    font-size: 13.5px;
+    color: var(--stone);
+    margin: 20px 0 0;
+    padding-left: 22px;
+  }
+
+  .trio { display: flex; flex-direction: column; gap: 0; }
+  .trio-item { padding: 26px 0; border-top: 1px solid var(--rule); }
+  .trio-item:first-child { border-top: 0; padding-top: 6px; }
+  .trio-item h3 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 22px;
+    margin: 8px 0 8px;
+  }
+  .trio-item p { margin: 0; color: var(--stone); }
+  .trio-item strong { color: var(--cream); font-weight: 700; }
+
+  /* ---------- Screenshot strip ---------- */
+  .strip-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .swipe-hint { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); }
+  .strip {
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    padding: 40px 24px 28px;
+    margin: 0 -24px;
+    scroll-snap-type: x proximity;
+    scrollbar-color: var(--rule) transparent;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 26px, #000 calc(100% - 64px), rgba(0,0,0,.14) 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 26px, #000 calc(100% - 64px), rgba(0,0,0,.14) 100%);
+  }
+  .shot { flex: 0 0 auto; width: 232px; scroll-snap-align: center; }
+  .shot figure { margin: 0; }
+  .shot figcaption {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--stone);
+    text-align: center;
+    margin-top: 14px;
+  }
+  .shot .phone { border-radius: 30px; padding: 8px; box-shadow: 0 14px 36px rgba(0,0,0,.45); }
+  .shot .phone img { border-radius: 23px; }
+
+  /* ---------- Reminders band ---------- */
+  .rem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+    margin-top: 48px;
+  }
+  .rem-item { border-top: 2px solid var(--rule); padding-top: 22px; }
+  .rem-item h3 { font-family: var(--display); font-weight: 600; font-size: 21px; margin: 8px 0 8px; }
+  .rem-item p { margin: 0; color: var(--stone); font-size: 16px; }
+  .pull {
+    margin: 72px auto 0;
+    max-width: 640px;
+    text-align: center;
+  }
+  .pull blockquote {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: clamp(21px, 3vw, 27px);
+    line-height: 1.35;
+    margin: 0;
+  }
+  .pull blockquote em { color: var(--amber-bright); font-style: italic; }
+  .pull .why {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-top: 16px;
+  }
+  .also {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 64px;
+  }
+  .also li {
+    list-style: none;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--stone);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 7px 15px;
+  }
+  ul.also { padding: 0; }
+
+  /* ---------- Privacy band ---------- */
+  .privacy { text-align: center; }
+  .privacy h2 { font-size: clamp(30px, 4.6vw, 48px); max-width: 14em; margin-left: auto; margin-right: auto; }
+  .privacy h2 .amber { color: var(--amber); }
+  .privacy p { color: var(--stone); max-width: 34em; margin: 0 auto 8px; }
+  .privacy .plink { display: inline-block; margin-top: 18px; font-family: var(--mono); font-size: 13.5px; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--char-well); border-top: 1px solid var(--rule); padding: 56px 0 64px; }
+  footer .made {
+    display: flex; align-items: center; gap: 14px;
+    color: var(--stone); font-size: 15px; max-width: 34em;
+  }
+  footer .made img { width: 40px; height: 40px; flex: 0 0 auto; }
+  footer nav {
+    display: flex; flex-wrap: wrap; gap: 8px 28px;
+    margin-top: 28px;
+    font-family: var(--mono); font-size: 13px;
+  }
+  footer nav a { color: var(--cream); }
+  footer nav a:hover { color: var(--amber-bright); }
+  footer .fine { color: var(--stone); font-family: var(--mono); font-size: 13px; margin-top: 28px; }
+
+  /* ---------- Motion ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero .mark, .hero .wordmark, .hero .sub, .hero h1, .hero .cta, .hero .trust, .hero .phone {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: rise .7s cubic-bezier(.2, .7, .3, 1) forwards;
+    }
+    .hero .wordmark { animation-delay: .08s; }
+    .hero .sub      { animation-delay: .16s; }
+    .hero h1        { animation-delay: .24s; }
+    .hero .cta      { animation-delay: .32s; }
+    .hero .trust    { animation-delay: .38s; }
+    .hero .phone    { animation-delay: .46s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
+    .reveal.in { opacity: 1; transform: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 880px) {
+    .plan-grid { grid-template-columns: 1fr; gap: 44px; }
+    .rem-grid { grid-template-columns: 1fr; gap: 30px; }
+    .band { padding: 72px 0; }
+    .hero .phone { margin-bottom: -110px; }
+    .hero-shelf { height: 150px; }
+  }
+  @media (max-width: 420px) {
+    .tl li { grid-template-columns: 1fr; gap: 0; }
+    .tl .t { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="mark" src="./assets/ovenwise-mark.png" alt="" width="108" height="108">
+    <div class="wordmark" role="img" aria-label="Ovenwise">Oven<span class="wise">wise</span></div>
+    <p class="sub">Sourdough scheduling for Android</p>
+    <h1>Tell it when you want to bake. It plans every step and reminds you on&nbsp;time.</h1>
+
+    <!-- When the Play listing is live, replace the <span> below with:
+         <a class="cta" href="https://play.google.com/store/apps/details?id=com.ovenwise.app">Get it on Google Play</a> -->
+    <span class="cta cta-soon">Coming soon to Google&nbsp;Play</span>
+
+    <p class="trust"><span>Free</span><span>No account</span><span>No ads</span></p>
+
+    <div class="phone">
+      <img src="./assets/03-schedule.png" alt="Ovenwise optimized timeline: a Tartine Country bake planned backward from Tuesday 9:00 AM — levain, bulk, fridge and bake phases laid out across the days, night hours shaded" width="1080" height="1920">
+    </div>
+  </div>
+</header>
+<div class="hero-shelf" aria-hidden="true"></div>
+
+<section class="band band-well reveal" id="plan">
+  <div class="wrap">
+    <div class="band-head">
+      <p class="eyebrow">Plan around your life</p>
+      <h2>Not around the dough's.</h2>
+      <p>Tell Ovenwise when you want to bake. It plans everything backward from that moment —
+         down to the clock time of every step.</p>
+    </div>
+
+    <div class="plan-grid">
+      <div class="timeline" aria-label="Example bake schedule">
+        <p class="timeline-caption">A Saturday-morning bake</p>
+        <p class="timeline-title">One decision: bake at <em>9:00 AM</em></p>
+        <ol class="tl">
+          <li><span class="t">Fri 12:00 PM</span><span class="s">Build the levain</span></li>
+          <li><span class="t">Fri 5:00 PM</span><span class="s">Mix the dough</span></li>
+          <li><span class="t">Fri 6:00 PM</span><span class="s">Stretch &amp; fold ×3</span></li>
+          <li><span class="t">Fri 9:30 PM</span><span class="s">Shape</span></li>
+          <li><span class="t">Fri 9:45 PM</span><span class="s">Into the fridge</span></li>
+          <li class="asleep"><span class="asleep-box"><span class="moon">☾</span>11:00 PM – 7:00 AM
+              — you're asleep. The fridge is doing the work.</span></li>
+          <li><span class="t">Sat 8:15 AM</span><span class="s">Preheat the oven</span></li>
+          <li><span class="t">Sat 9:00 AM</span><span class="s">Bake — straight from the fridge</span></li>
+          <li><span class="t">Sat 9:40 AM</span><span class="s">Out of the oven — cooling</span></li>
+          <li class="bake"><span class="t">Sat 10:45 AM</span><span class="s">Fresh bread.</span></li>
+        </ol>
+        <p class="timeline-note">Every step lands on your clock — and reminders fire so you never
+           have to keep one eye on it.</p>
+      </div>
+
+      <div class="trio">
+        <div class="trio-item">
+          <p class="eyebrow">Backward scheduling</p>
+          <h3>Pick the moment. Get the plan.</h3>
+          <p>Choose a bake day and time and get an exact, hour-by-hour schedule — when to build
+             your levain, mix, stretch and fold, shape, cold-retard, preheat, and bake.</p>
+        </div>
+        <div class="trio-item">
+          <p class="eyebrow">Sleep-aware &amp; honest</p>
+          <h3>It works around your night.</h3>
+          <p>Tell it when you sleep and it keeps the active steps out of your night — and tells you
+             honestly when a style just won't fit. Every schedule is scored
+             <strong>Great&nbsp;/ Good&nbsp;/ Tight&nbsp;/ Difficult</strong>, and "Better
+             schedules" suggests real alternatives it has verified — not wishful thinking.</p>
+        </div>
+        <div class="trio-item">
+          <p class="eyebrow">17 baking styles</p>
+          <h3>Each with its own science.</h3>
+          <p>Tartine-style country loaf, same-day, weekend bake, overnight no-knead, sandwich
+             loaf, brioche, focaccia, pizza dough, and more — each with its own fermentation
+             science.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band reveal" id="screens">
+  <div class="wrap">
+    <div class="strip-head">
+      <div class="band-head">
+        <p class="eyebrow">The app</p>
+        <h2>Have a look around.</h2>
+      </div>
+      <p class="swipe-hint" aria-hidden="true">Swipe &#8594;</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="strip" tabindex="0" aria-label="App screenshots, scroll horizontally">
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/01-dashboard.png" alt="Dashboard: style, ingredients, bake time, and a fit rating on one screen" width="1080" height="1920"></div>
+        <figcaption>Your bake at a glance</figcaption>
+      </figure></div>
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/02-wizard-styles.png" alt="Style picker: 17 baking styles from country loaf to pizza dough" width="1080" height="1920"></div>
+        <figcaption>17 styles to choose from</figcaption>
+      </figure></div>
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/08-controls.png" alt="Flavor controls: sourness, acid character, crumb structure and salt sliders with the style's recommended range" width="1080" height="1920"></div>
+        <figcaption>Dial in flavor &amp; hydration</figcaption>
+      </figure></div>
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/03-schedule.png" alt="The full schedule: every step with its own clock time" width="1080" height="1920"></div>
+        <figcaption>Every step, on your clock</figcaption>
+      </figure></div>
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/04-reminders.png" alt="Reminder settings: consolidated steps you can trim further" width="1080" height="1920"></div>
+        <figcaption>Reminders you can trim</figcaption>
+      </figure></div>
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/05-guide.png" alt="Bake-along guide: swipeable step cards with times and gram amounts" width="1080" height="1920"></div>
+        <figcaption>Bake-along guide</figcaption>
+      </figure></div>
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/06-baketimer.png" alt="Live bake timer with a full-screen countdown ring" width="1080" height="1920"></div>
+        <figcaption>Live bake-window timer</figcaption>
+      </figure></div>
+      <div class="shot"><figure>
+        <div class="phone"><img loading="lazy" src="./assets/07-bakelog.png" alt="Bake log: saved bakes with crumb and crust ratings and notes" width="1080" height="1920"></div>
+        <figcaption>Remember what worked</figcaption>
+      </figure></div>
+    </div>
+  </div>
+</section>
+
+<section class="band band-well reveal" id="reminders">
+  <div class="wrap">
+    <div class="band-head">
+      <p class="eyebrow">Reminders that respect you</p>
+      <h2>Every buzz is a real kitchen visit.</h2>
+    </div>
+
+    <div class="rem-grid">
+      <div class="rem-item">
+        <h3>Signal, not noise</h3>
+        <p>Steps are consolidated so every alert is worth standing up for — and you can trim them
+           further: first fold only, prep steps off. One separate loud channel is reserved for the
+           alert that can't wait: <strong style="color:var(--cream)">"Take it out!"</strong></p>
+      </div>
+      <div class="rem-item">
+        <h3>Follow along, your way</h3>
+        <p>A bake-along guide with swipeable step cards — times, gram amounts, and what to look
+           for. Tap any reminder to open it right at that step. Prefer your calendar? Export every
+           step as a calendar event (.ics).</p>
+      </div>
+      <div class="rem-item">
+        <h3>Preheat to cooling rack</h3>
+        <p>A live bake-window timer keeps watch at the end: countdown strip, full-screen ring
+           timer, and a pinned notification until the loaf is safely out.</p>
+      </div>
+    </div>
+
+    <div class="pull">
+      <blockquote>Fermentation steps say <em>"your dough should look noticeably risen — shape
+        now"</em> — because dough doesn't read clocks.</blockquote>
+      <p class="why">Honest cues, not false precision</p>
+    </div>
+
+    <ul class="also" aria-label="Also included">
+      <li>Full recipe math</li>
+      <li>Add-ins, with the right fold</li>
+      <li>Altitude-aware</li>
+      <li>Kitchen-temperature adjustments</li>
+      <li>Save your plan as an image</li>
+      <li>Bake log &amp; notes</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band privacy reveal" id="privacy">
+  <div class="wrap">
+    <p class="eyebrow">Your data stays yours</p>
+    <h2>No account. No ads. No analytics.<br><span class="amber">Everything lives on your phone.</span></h2>
+    <p>The only internet Ovenwise ever touches is the optional ZIP-to-altitude lookup you trigger
+       yourself.</p>
+    <a class="plink" href="./privacy.html">Read the privacy policy &#8594;</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="made">
+      <img src="./assets/ovenwise-mark.png" alt="" width="40" height="40">
+      <span>Made by Dadbyte — for everyone who wants fresh bread on Saturday morning without
+        setting a 2 a.m. alarm.</span>
+    </p>
+    <nav aria-label="Footer">
+      <a href="mailto:support@dadbyte.com">support@dadbyte.com</a>
+      <a href="./privacy.html">Privacy Policy</a>
+      <a href="./press/">Press kit</a>
+    </nav>
+    <p class="fine">&copy; 2026 Dadbyte</p>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll (skipped entirely under reduced motion; CSS keeps sections visible).
+  if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      }
+    }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  }
+</script>
+
+</body>
+</html>

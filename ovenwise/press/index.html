@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ovenwise Press Kit — Dadbyte</title>
+<meta name="description" content="Press kit for Ovenwise, the sourdough scheduling app for Android by Dadbyte: app description, fact sheet, and downloadable logos, icons, and screenshots.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ovenwise">
+<meta property="og:title" content="Ovenwise Press Kit">
+<meta property="og:description" content="App description, fact sheet, and downloadable brand assets for Ovenwise, the sourdough scheduling app for Android.">
+<meta property="og:url" content="https://dadbyte.com/ovenwise/press/">
+<meta property="og:image" content="https://dadbyte.com/ovenwise/assets/ovenwise-feature-1024x500.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="../assets/icon-charcoal-1024.png">
+<link rel="apple-touch-icon" href="../assets/icon-amber-1024.png">
+<meta name="theme-color" content="#1C1917">
+
+<style>
+  @font-face {
+    font-family: 'Fraunces';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('../assets/fonts/fraunces.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('../assets/fonts/karla.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/jetbrains-mono-regular.woff2') format('woff2');
+  }
+
+  :root {
+    --char: #1C1917;
+    --char-well: #151210;
+    --char-raise: #262220;
+    --cream: #F5F0EB;
+    --stone: #A8A29E;
+    --amber: #F59E0B;
+    --amber-bright: #FBBF24;
+    --rule: #3A3430;
+    --display: 'Fraunces', Georgia, serif;
+    --body: 'Karla', system-ui, -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: clip; }
+  body {
+    margin: 0;
+    background: var(--char);
+    color: var(--cream);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; height: auto; }
+  a { color: var(--amber-bright); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--amber); }
+  :focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  header.top { padding: 44px 0 0; }
+  .crumb { font-family: var(--mono); font-size: 13px; }
+  .crumb a { color: var(--stone); text-decoration: none; }
+  .crumb a:hover { color: var(--amber-bright); }
+  .masthead { display: flex; align-items: center; gap: 18px; margin: 30px 0 8px; }
+  .masthead img { width: 72px; height: 72px; }
+  h1 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(34px, 5.4vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -.01em;
+    margin: 0;
+  }
+  h1 .wise { color: var(--amber); }
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--amber); margin: 0 0 6px; }
+  .lede { color: var(--stone); max-width: 40em; margin: 14px 0 0; }
+
+  section { padding: 56px 0 0; }
+  section:last-of-type { padding-bottom: 24px; }
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 27px;
+    letter-spacing: -.01em;
+    margin: 0 0 18px;
+    padding-top: 34px;
+    border-top: 1px solid var(--rule);
+  }
+  .desc { max-width: 42em; }
+  .desc p { margin: 0 0 16px; }
+
+  /* Fact sheet */
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 40px;
+    background: var(--char-raise);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 10px 26px;
+    margin: 0;
+  }
+  .facts > div { display: flex; gap: 16px; padding: 12px 0; border-top: 1px solid var(--rule); }
+  .facts > div:nth-child(1), .facts > div:nth-child(2) { border-top: 0; }
+  .facts dt {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--stone);
+    flex: 0 0 108px;
+    padding-top: 4px;
+  }
+  .facts dd { margin: 0; }
+
+  .founder {
+    border-left: 3px solid var(--amber);
+    padding: 4px 0 4px 22px;
+    max-width: 40em;
+  }
+  .founder p {
+    font-family: var(--display);
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  /* Asset cards */
+  .assets-note { color: var(--stone); margin: -6px 0 26px; max-width: 44em; }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+  .card {
+    background: var(--char-raise);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 18px;
+  }
+  .card .thumb {
+    background: var(--char-well);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 190px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .card .thumb img { max-height: 160px; width: auto; max-width: 92%; }
+  .card .thumb.wide img { max-height: none; max-width: 100%; }
+  .card h3 { font-family: var(--display); font-weight: 600; font-size: 19px; margin: 0 0 2px; }
+  .card .spec { font-family: var(--mono); font-size: 12px; color: var(--stone); margin: 0 0 10px; }
+  .dl { font-family: var(--mono); font-size: 13px; }
+
+  /* Screenshot grid */
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 18px;
+  }
+  .shots figure { margin: 0; }
+  .shots img {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--rule);
+  }
+  .shots figcaption { margin-top: 8px; }
+  .shots .name { display: block; font-size: 14px; }
+  .shots .dl { font-size: 12px; }
+
+  footer { border-top: 1px solid var(--rule); margin-top: 64px; padding: 32px 0 56px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 28px; font-family: var(--mono); font-size: 13px; color: var(--stone); }
+  footer a { color: var(--cream); }
+  footer a:hover { color: var(--amber-bright); }
+
+  @media (max-width: 720px) {
+    .facts { grid-template-columns: 1fr; }
+    .facts > div:nth-child(2) { border-top: 1px solid var(--rule); }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <p class="crumb"><a href="../">&#8592; dadbyte.com/ovenwise</a></p>
+    <div class="masthead">
+      <img src="../assets/ovenwise-mark.png" alt="" width="72" height="72">
+      <div>
+        <p class="kicker">Press kit</p>
+        <h1>Oven<span class="wise">wise</span></h1>
+      </div>
+    </div>
+    <p class="lede">Everything on this page may be used in coverage of Ovenwise.
+       Questions, review builds, or anything missing:
+       <a href="mailto:support@dadbyte.com">support@dadbyte.com</a>.</p>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <h2>About Ovenwise</h2>
+    <div class="desc">
+      <p>Tell Ovenwise when you want to bake. It plans everything backward from that moment —
+         when to build your levain, mix, stretch and fold, shape, cold-retard, and preheat —
+         down to the clock time of every step. It works
+         the active steps around your sleep, scores every schedule honestly (Great / Good /
+         Tight / Difficult), covers 17 baking styles with their own fermentation science, and
+         reminds you on time with a bake-along guide, a live bake timer, and calendar export.
+         There's no account, no ads, and no analytics — everything lives on your phone.</p>
+    </div>
+  </div>
+</section>
+
+<section id="facts">
+  <div class="wrap">
+    <h2>Fact sheet</h2>
+    <dl class="facts">
+      <div><dt>Name</dt><dd>Ovenwise <span style="color:var(--stone)">(on Google Play: Ovenwise: Sourdough Scheduler)</span></dd></div>
+      <div><dt>Publisher</dt><dd>Dadbyte</dd></div>
+      <div><dt>Platform</dt><dd>Android</dd></div>
+      <div><dt>Price</dt><dd>Free — no ads, no in-app purchases</dd></div>
+      <div><dt>Category</dt><dd>Food &amp; Drink</dd></div>
+      <div><dt>Status</dt><dd>Coming soon to Google Play</dd></div>
+      <div><dt>Contact</dt><dd><a href="mailto:support@dadbyte.com">support@dadbyte.com</a></dd></div>
+      <div><dt>Website</dt><dd><a href="../">dadbyte.com/ovenwise</a></dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="founder">
+  <div class="wrap">
+    <h2>About Dadbyte</h2>
+    <div class="founder">
+      <p>Ovenwise is made by Dadbyte, a one-person studio — built by a dad who wanted fresh
+         bread on Saturday morning without a 2&nbsp;a.m.&nbsp;alarm.</p>
+    </div>
+  </div>
+</section>
+
+<section id="assets">
+  <div class="wrap">
+    <h2>Downloadable assets</h2>
+    <p class="assets-note">Brand colors: charcoal <code>#1C1917</code> · amber
+       <code>#F59E0B</code> · cream <code>#F5F0EB</code>. Wordmark set in Fraunces.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="thumb wide">
+          <img loading="lazy" src="../assets/ovenwise-feature-1024x500.jpg" alt="Ovenwise feature graphic: owl mark beside the Ovenwise wordmark and the line 'Simplifying Sourdough' on charcoal" width="1024" height="500">
+        </div>
+        <h3>Feature graphic</h3>
+        <p class="spec">JPG &middot; 1024&times;500 &middot; 50&nbsp;KB</p>
+        <a class="dl" href="../assets/ovenwise-feature-1024x500.jpg" download>Download &#8595;</a>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <img loading="lazy" src="../assets/ovenwise-logo-for-dark-bg.png" alt="Ovenwise logo lockup: owl mark beside the Ovenwise wordmark, transparent background" width="2786" height="840">
+        </div>
+        <h3>Logo lockup</h3>
+        <p class="spec">PNG &middot; 2786&times;840 &middot; transparent &middot; two variants</p>
+        <a class="dl" href="../assets/ovenwise-logo-for-light-bg.png" download>For light backgrounds &#8595;</a><br>
+        <a class="dl" href="../assets/ovenwise-logo-for-dark-bg.png" download>For dark backgrounds &#8595;</a>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <img loading="lazy" src="../assets/ovenwise-mark.png" alt="Ovenwise owl mark on a transparent background" width="761" height="761">
+        </div>
+        <h3>Owl mark</h3>
+        <p class="spec">PNG &middot; 761&times;761 &middot; transparent</p>
+        <a class="dl" href="../assets/ovenwise-mark.png" download>Download &#8595;</a>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <img loading="lazy" src="../assets/icon-amber-1024.png" alt="Ovenwise app icon, owl on amber" width="1024" height="1024">
+        </div>
+        <h3>App icon — amber</h3>
+        <p class="spec">PNG &middot; 1024&times;1024</p>
+        <a class="dl" href="../assets/icon-amber-1024.png" download>Download &#8595;</a>
+      </div>
+
+      <div class="card">
+        <div class="thumb">
+          <img loading="lazy" src="../assets/icon-charcoal-1024.png" alt="Ovenwise app icon, owl on charcoal" width="1024" height="1024">
+        </div>
+        <h3>App icon — charcoal</h3>
+        <p class="spec">PNG &middot; 1024&times;1024</p>
+        <a class="dl" href="../assets/icon-charcoal-1024.png" download>Download &#8595;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="wrap">
+    <h2>Screenshots</h2>
+    <p class="assets-note">Eight phone screenshots, PNG, 1080&times;1920.</p>
+    <div class="shots">
+      <figure>
+        <img loading="lazy" src="../assets/01-dashboard.png" alt="Dashboard: style, ingredients, bake time, and a fit rating on one screen" width="1080" height="1920">
+        <figcaption><span class="name">Dashboard</span><a class="dl" href="../assets/01-dashboard.png" download>Download &#8595;</a></figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" src="../assets/02-wizard-styles.png" alt="Style picker: 17 baking styles" width="1080" height="1920">
+        <figcaption><span class="name">Style picker</span><a class="dl" href="../assets/02-wizard-styles.png" download>Download &#8595;</a></figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" src="../assets/03-schedule.png" alt="Full schedule with clock times for every step" width="1080" height="1920">
+        <figcaption><span class="name">Schedule</span><a class="dl" href="../assets/03-schedule.png" download>Download &#8595;</a></figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" src="../assets/04-reminders.png" alt="Reminder settings" width="1080" height="1920">
+        <figcaption><span class="name">Reminders</span><a class="dl" href="../assets/04-reminders.png" download>Download &#8595;</a></figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" src="../assets/05-guide.png" alt="Bake-along guide step card" width="1080" height="1920">
+        <figcaption><span class="name">Bake-along guide</span><a class="dl" href="../assets/05-guide.png" download>Download &#8595;</a></figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" src="../assets/06-baketimer.png" alt="Live bake timer ring" width="1080" height="1920">
+        <figcaption><span class="name">Bake timer</span><a class="dl" href="../assets/06-baketimer.png" download>Download &#8595;</a></figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" src="../assets/07-bakelog.png" alt="Bake log with ratings and notes" width="1080" height="1920">
+        <figcaption><span class="name">Bake log</span><a class="dl" href="../assets/07-bakelog.png" download>Download &#8595;</a></figcaption>
+      </figure>
+      <figure>
+        <img loading="lazy" src="../assets/08-controls.png" alt="Flavor controls: sourness, acid character, crumb structure and salt sliders" width="1080" height="1920">
+        <figcaption><span class="name">Flavor controls</span><a class="dl" href="../assets/08-controls.png" download>Download &#8595;</a></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="mailto:support@dadbyte.com">support@dadbyte.com</a>
+    <a href="../privacy.html">Privacy Policy</a>
+    <a href="../">Ovenwise home</a>
+    <span>&copy; 2026 Dadbyte</span>
+  </div>
+</footer>
+
+</body>
+</html>
