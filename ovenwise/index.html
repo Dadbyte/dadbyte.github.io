@@ -95,6 +95,7 @@
     line-height: 1.12;
     letter-spacing: -.01em;
     margin: 10px 0 18px;
+    text-wrap: balance;
   }
 
   /* ---------- Hero ---------- */
@@ -259,6 +260,7 @@
   }
   .tl .asleep::after { content: none; }
   .tl .asleep-box {
+    display: block;
     border: 1px dashed var(--rule);
     border-radius: 12px;
     padding: 12px 16px;
@@ -380,14 +382,15 @@
   .privacy .plink { display: inline-block; margin-top: 18px; font-family: var(--mono); font-size: 13.5px; }
 
   /* ---------- Footer ---------- */
-  footer { background: var(--char-well); border-top: 1px solid var(--rule); padding: 56px 0 64px; }
+  footer { background: var(--char-well); border-top: 1px solid var(--rule); padding: 56px 0 64px; text-align: center; }
   footer .made {
-    display: flex; align-items: center; gap: 14px;
-    color: var(--stone); font-size: 15px; max-width: 34em;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    color: var(--stone); font-size: 15px; max-width: 34em; margin-left: auto; margin-right: auto;
+    text-align: left;
   }
   footer .made img { width: 40px; height: 40px; flex: 0 0 auto; }
   footer nav {
-    display: flex; flex-wrap: wrap; gap: 8px 28px;
+    display: flex; flex-wrap: wrap; gap: 8px 28px; justify-content: center;
     margin-top: 28px;
     font-family: var(--mono); font-size: 13px;
   }
@@ -452,8 +455,7 @@
 <section class="band band-well reveal" id="plan">
   <div class="wrap">
     <div class="band-head">
-      <p class="eyebrow">Plan around your life</p>
-      <h2>Not around the dough's.</h2>
+      <h2>Plan around your life,<br>not around the dough's</h2>
       <p>Tell Ovenwise when you want to bake. It plans everything backward from that moment —
          down to the clock time of every step.</p>
     </div>
@@ -482,13 +484,13 @@
       <div class="trio">
         <div class="trio-item">
           <p class="eyebrow">Backward scheduling</p>
-          <h3>Pick the moment. Get the plan.</h3>
+          <h3>Pick the moment. Get the plan</h3>
           <p>Choose a bake day and time and get an exact, hour-by-hour schedule — when to build
              your levain, mix, stretch and fold, shape, cold-retard, preheat, and bake.</p>
         </div>
         <div class="trio-item">
           <p class="eyebrow">Sleep-aware &amp; honest</p>
-          <h3>It works around your night.</h3>
+          <h3>It works around your night</h3>
           <p>Tell it when you sleep and it keeps the active steps out of your night — and tells you
              honestly when a style just won't fit. Every schedule is scored
              <strong>Great&nbsp;/ Good&nbsp;/ Tight&nbsp;/ Difficult</strong>, and "Better
@@ -496,7 +498,7 @@
         </div>
         <div class="trio-item">
           <p class="eyebrow">17 baking styles</p>
-          <h3>Each with its own science.</h3>
+          <h3>Each with its own science</h3>
           <p>Tartine-style country loaf, same-day, weekend bake, overnight no-knead, sandwich
              loaf, brioche, focaccia, pizza dough, and more — each with its own fermentation
              science.</p>
@@ -511,7 +513,7 @@
     <div class="strip-head">
       <div class="band-head">
         <p class="eyebrow">The app</p>
-        <h2>Have a look around.</h2>
+        <h2>Have a look around</h2>
       </div>
       <p class="swipe-hint" aria-hidden="true">Swipe &#8594;</p>
     </div>
@@ -558,7 +560,7 @@
   <div class="wrap">
     <div class="band-head">
       <p class="eyebrow">Reminders that respect you</p>
-      <h2>Every buzz is a real kitchen visit.</h2>
+      <h2>Every buzz is a real kitchen&nbsp;visit</h2>
     </div>
 
     <div class="rem-grid">
@@ -601,7 +603,7 @@
 <section class="band privacy reveal" id="privacy">
   <div class="wrap">
     <p class="eyebrow">Your data stays yours</p>
-    <h2>No account. No ads. No analytics.<br><span class="amber">Everything lives on your phone.</span></h2>
+    <h2>No&nbsp;account. No&nbsp;ads. No&nbsp;analytics.<br><span class="amber">Everything lives on your&nbsp;phone</span></h2>
     <p>The only internet Ovenwise ever touches is the optional ZIP-to-altitude lookup you trigger
        yourself.</p>
     <a class="plink" href="./privacy.html">Read the privacy policy &#8594;</a>
