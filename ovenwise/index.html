@@ -631,5 +631,25 @@
   }
 </script>
 
+<script>
+  // Carries utm_* from this page's URL into the Play link's referrer, so installs that start on
+  // Pinterest, Instagram or Facebook are attributed to that channel in the Play Console instead of "landing".
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var src = q.get('utm_source');
+    if (!src) return;
+    var ok = function (v) { return v && /^[A-Za-z0-9_.-]{1,40}$/.test(v) ? v : null; };
+    var parts = [];
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) {
+      var v = ok(q.get(k)); if (v) parts.push(k + '=' + v);
+    });
+    if (!parts.length) return;
+    var ref = encodeURIComponent(parts.join('&'));
+    document.querySelectorAll('a[href*="play.google.com/store/apps/details?id=com.ovenwise.app"]').forEach(function (a) {
+      a.href = a.href.replace(/([?&])referrer=[^&]*/, '$1referrer=' + ref);
+    });
+  })();
+</script>
+
 </body>
 </html>
